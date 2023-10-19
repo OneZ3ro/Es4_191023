@@ -10,7 +10,6 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "partite_di_calcio")
-@NamedQueries(@NamedQuery(name = "getPartiteVinteInCasa", query = "SELECT p.squadraVincente FROM PartitaDiCalcio p"))
 public class PartitaDiCalcio extends Evento {
     private String squadraDiCasa;
     private String squadraOspite;

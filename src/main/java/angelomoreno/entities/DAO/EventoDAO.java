@@ -2,6 +2,7 @@ package angelomoreno.entities.DAO;
 
 import angelomoreno.entities.Concerto;
 import angelomoreno.entities.Evento;
+import angelomoreno.entities.PartitaDiCalcio;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -66,5 +67,10 @@ public class EventoDAO {
     public List<Concerto> getConcertiPerGenere() {
         TypedQuery<Concerto> getConcertiPerGenereQuery = em.createQuery("SELECT x FROM Concerto x ORDER BY x.genere", Concerto.class);
         return getConcertiPerGenereQuery.getResultList();
+    }
+
+    public List<PartitaDiCalcio> getPartiteDiCalcio() {
+        TypedQuery<PartitaDiCalcio> getPartiteDiCalcioQuery = em.createQuery("getPartiteVinteInCasa", PartitaDiCalcio.class);
+        return getPartiteDiCalcioQuery.getResultList();
     }
 }

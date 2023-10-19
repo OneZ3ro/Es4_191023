@@ -11,7 +11,7 @@ import java.util.UUID;
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Table(name = "eventi")
-
+@NamedQueries(@NamedQuery(name = "getPartiteVinteInCasa", query = "SELECT p.squadraVincente FROM PartitaDiCalcio p"))
 public abstract class Evento {
     @Id
     @GeneratedValue

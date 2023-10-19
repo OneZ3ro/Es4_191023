@@ -52,10 +52,4 @@ public class PartitaDiCalcioDAO {
             System.err.println("La partita di calcio con id" + id + " non è stata trovata");
         }
     }
-
-    public List<PartitaDiCalcio> getPartiteDiCalcio() {
-        TypedQuery<PartitaDiCalcio> getPartiteDiCalcioQuery = em.createQuery("getPartiteVinteInCasa", PartitaDiCalcio.class);
-        return getPartiteDiCalcioQuery.getResultList();
-    }
-
 }
