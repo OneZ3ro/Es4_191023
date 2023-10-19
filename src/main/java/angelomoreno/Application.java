@@ -1,13 +1,11 @@
 package angelomoreno;
 
+import angelomoreno.entities.*;
 import angelomoreno.entities.DAO.EventoDAO;
 import angelomoreno.entities.DAO.LocationDAO;
 import angelomoreno.entities.DAO.PartecipazioneDAO;
 import angelomoreno.entities.DAO.PersonaDAO;
-import angelomoreno.entities.Evento;
-import angelomoreno.entities.Location;
-import angelomoreno.entities.Partecipazione;
-import angelomoreno.entities.Persona;
+import angelomoreno.entities.enums.GenereConcerto;
 import angelomoreno.entities.enums.Sesso;
 import angelomoreno.entities.enums.Stato;
 import angelomoreno.entities.enums.TipoEvento;
@@ -17,8 +15,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.time.LocalDate;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.*;
 
 public class Application {
     private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("Es4_191023");
@@ -31,20 +28,6 @@ public class Application {
             EventoDAO ed = new EventoDAO(em);
             Faker faker =  new Faker();
 
-            Location loc1 = new Location("Piazza Duomo", "Milano");
-            Location loc2 = new Location("Piazza Leonardo", "Friuli Venezia Giulia");
-            Location loc3 = new Location("Piazzale Margherita", "Puglia");
-//            ld.save(loc1);
-//            ld.save(loc2);
-//            ld.save(loc3);
-
-            Evento evento1 = new Evento("Pigiama party", LocalDate.now(), "Per festa compleanno", TipoEvento.PRIVATO, 10, loc1);
-            Evento evento2 = new Evento("Party lavoro", LocalDate.now(), "Per 40 anni dall'apertura", TipoEvento.PRIVATO, 40, loc2);
-            Evento evento3 = new Evento("Comicon", LocalDate.now(), "Fiera fumetti", TipoEvento.PUBBLICO, 10000, loc3);
-//            ed.save(evento1);
-//            ed.save(evento2);
-//            ed.save(evento3);
-
             Persona persona1 = new Persona(faker.funnyName().name(), faker.funnyName().name(), "prova1@gmail.com", faker.date().birthday(), Sesso.M);
             Persona persona2 = new Persona(faker.funnyName().name(), faker.funnyName().name(), "prova1@gmail.com", faker.date().birthday(), Sesso.F);
             Persona persona3 = new Persona(faker.funnyName().name(), faker.funnyName().name(), "prova1@gmail.com", faker.date().birthday(), Sesso.M);
@@ -55,6 +38,31 @@ public class Application {
 //            persd.save(persona3);
 //            persd.save(persona4);
 //            persd.save(persona5);
+
+            Set<Persona> atleti = new HashSet<>();
+//            atleti.add(persona1);
+//            atleti.add(persona2);
+//            atleti.add(persona3);
+//            atleti.add(persona4);
+//            atleti.add(persona5);
+
+            Location loc1 = new Location("Piazza Duomo", "Milano");
+            Location loc2 = new Location("Piazza Leonardo", "Friuli Venezia Giulia");
+            Location loc3 = new Location("Piazzale Margherita", "Puglia");
+//            ld.save(loc1);
+//            ld.save(loc2);
+//            ld.save(loc3);
+
+            Evento evento1 = new PartitaDiCalcio("Pigiama party", LocalDate.now(), "Per festa compleanno", TipoEvento.PRIVATO, 10, loc1, "Milan", "Juventus", "Milan", 3, 1);
+            Evento evento2 = new GaraDiAtletica("Party lavoro", LocalDate.now(), "Per 40 anni dall'apertura", TipoEvento.PRIVATO, 40, loc2, atleti, persona4);
+            Evento evento3 = new Concerto("Concerto Rio", LocalDate.now(), "Concerto mega", TipoEvento.PUBBLICO, 30000, loc3, GenereConcerto.POP, true);
+            Evento evento4 = new Concerto("Concerto Milano", LocalDate.now(), "Concerto small", TipoEvento.PUBBLICO, 500, loc3, GenereConcerto.CLASSICO, false);
+            Evento evento5 = new Concerto("Concerto Lucca", LocalDate.now(), "Concerto big", TipoEvento.PUBBLICO, 1000, loc2, GenereConcerto.ROCK, true);
+//            ed.save(evento1);
+//            ed.save(evento2);
+//            ed.save(evento3);
+//            ed.save(evento4);
+//            ed.save(evento5);
 
             Partecipazione partecipazione1 = new Partecipazione(persona1, evento1, Stato.DA_CONFERMARE);
             Partecipazione partecipazione2 = new Partecipazione(persona2, evento1, Stato.DA_CONFERMARE);

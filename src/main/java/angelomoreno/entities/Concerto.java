@@ -2,15 +2,19 @@ package angelomoreno.entities;
 
 import angelomoreno.entities.enums.GenereConcerto;
 import angelomoreno.entities.enums.TipoEvento;
-import angelomoreno.entities.enums.VeroOFalso;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.time.LocalDate;
-
+@Entity
+@Table(name = "concerti")
 public class Concerto extends Evento {
     private GenereConcerto genereConcerto;
-    private VeroOFalso inStreaming;
+    @Column(name = "in_streaming")
+    private boolean inStreaming;
 
-    public Concerto(String titolo, LocalDate dataEvento, String descrizione, TipoEvento tipoEvento, int numeroMassimoPartecipanti, Location location, GenereConcerto genereConcerto, VeroOFalso inStreaming) {
+    public Concerto(String titolo, LocalDate dataEvento, String descrizione, TipoEvento tipoEvento, int numeroMassimoPartecipanti, Location location, GenereConcerto genereConcerto, boolean inStreaming) {
         super(titolo, dataEvento, descrizione, tipoEvento, numeroMassimoPartecipanti, location);
         this.genereConcerto = genereConcerto;
         this.inStreaming = inStreaming;
@@ -24,11 +28,11 @@ public class Concerto extends Evento {
         this.genereConcerto = genereConcerto;
     }
 
-    public VeroOFalso getInStreaming() {
+    public boolean getInStreaming() {
         return inStreaming;
     }
 
-    public void setInStreaming(VeroOFalso inStreaming) {
+    public void setInStreaming(boolean inStreaming) {
         this.inStreaming = inStreaming;
     }
 

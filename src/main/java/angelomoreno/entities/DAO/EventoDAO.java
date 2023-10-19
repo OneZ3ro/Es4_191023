@@ -1,9 +1,12 @@
 package angelomoreno.entities.DAO;
 
+import angelomoreno.entities.Concerto;
 import angelomoreno.entities.Evento;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
+import java.util.List;
 
 public class EventoDAO {
     private final EntityManager em;
@@ -49,4 +52,14 @@ public class EventoDAO {
         }
     }
 
+    public List<Concerto> getConcertiInStreaming(boolean bol) {
+        TypedQuery<Concerto> getConcertiInStreamingQuery = em.createQuery("SELECT x FROM Concerto x WHERE x.in_streaming = :bol", Concerto.class);
+        getConcertiInStreamingQuery.setParameter("bol", bol);
+        return getConcertiInStreamingQuery.getResultList();
+    }
+
+    public List<Concerto> getConcertiPerGenere() {
+        TypedQuery<Concerto> getConcertiPerGenereQuery = em.createQuery("SELECT x FROM Concerto x ORDER BY x.genere", Concerto.class);
+        return getConcertiPerGenereQuery.getResultList();
+    }
 }

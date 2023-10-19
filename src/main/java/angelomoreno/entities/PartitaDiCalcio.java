@@ -3,9 +3,11 @@ package angelomoreno.entities;
 import angelomoreno.entities.enums.TipoEvento;
 
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.time.LocalDate;
 
 @Entity
+@Table(name = "partite_di_calcio")
 public class PartitaDiCalcio extends Evento {
     private String squadraDiCasa;
     private String squadraOspite;
