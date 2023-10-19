@@ -2,7 +2,9 @@ package angelomoreno.entities.DAO;
 
 import angelomoreno.entities.Concerto;
 import angelomoreno.entities.Evento;
+import angelomoreno.entities.GaraDiAtletica;
 import angelomoreno.entities.PartitaDiCalcio;
+import angelomoreno.entities.enums.GenereConcerto;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -53,24 +55,38 @@ public class EventoDAO {
         }
     }
 
-    public List<Concerto> getConcertiInStreaming(boolean bol) {
-        TypedQuery<Concerto> getConcertiInStreamingQuery = em.createQuery("SELECT x FROM Concerto x WHERE x.in_streaming = :bol", Concerto.class);
-        getConcertiInStreamingQuery.setParameter("bol", bol);
+    public List<Concerto> getConcertiInStreaming(boolean booleano) {
+        TypedQuery<Concerto> getConcertiInStreamingQuery = em.createQuery("SELECT c FROM Concerto c WHERE c.inStreaming = :booleano", Concerto.class);
+        getConcertiInStreamingQuery.setParameter("booleano", booleano);
         return getConcertiInStreamingQuery.getResultList();
     }
 
-//    public List<Concerto> getConcertiInStreaming() {
-//        TypedQuery<Concerto> getConcertiInStreamingQuery = em.createQuery("SELECT x FROM concerti x", Concerto.class);
-//        return getConcertiInStreamingQuery.getResultList();
-//    }
-
-    public List<Concerto> getConcertiPerGenere() {
-        TypedQuery<Concerto> getConcertiPerGenereQuery = em.createQuery("SELECT x FROM Concerto x ORDER BY x.genere", Concerto.class);
+    public List<Concerto> getConcertiPerGenere(GenereConcerto genereConcerto) {
+        TypedQuery<Concerto> getConcertiPerGenereQuery = em.createQuery("SELECT c FROM Concerto c WHERE c.genere_concerto=:genere", Concerto.class);
+        getConcertiPerGenereQuery.setParameter("genere", genereConcerto);
         return getConcertiPerGenereQuery.getResultList();
     }
 
-    public List<PartitaDiCalcio> getPartiteDiCalcio() {
-        TypedQuery<PartitaDiCalcio> getPartiteDiCalcioQuery = em.createQuery("getPartiteVinteInCasa", PartitaDiCalcio.class);
-        return getPartiteDiCalcioQuery.getResultList();
+    public List<PartitaDiCalcio> getPartitaDiCalcioList() {
+        TypedQuery<PartitaDiCalcio> getPartitaDiCalcioListQuery = em.createQuery("SELECT p FROM PartitaDiCalcio p", PartitaDiCalcio.class);
+        return getPartitaDiCalcioListQuery.getResultList();
+    }
+
+    public List<GaraDiAtletica> getGaraDiAtleticaList() {
+        TypedQuery<GaraDiAtletica> getGaraDiAtleticaListQuery = em.createQuery("SELECT g FROM GaraDiAtletica g", GaraDiAtletica.class);
+        return getGaraDiAtleticaListQuery.getResultList();
+    }
+
+    public List<Concerto> getConcertoList() {
+        TypedQuery<Concerto> getConcertoListQuery = em.createQuery("SELECT c FROM Concerto c", Concerto.class);
+        return getConcertoListQuery.getResultList();
+    }
+
+    public List<PartitaDiCalcio> getPartiteVinteInCasa() {
+        return em.createQuery("SELECT p FROM PartitaDiCalcio p WHERE p.squadraDiCasa = p.squadraVincente", PartitaDiCalcio.class).getResultList();
+    }
+
+    public List<PartitaDiCalcio> getPartiteVinteInTrasferta() {
+        return em.createQuery("SELECT p FROM PartitaDiCalcio p WHERE p.squadraOspite = p.squadraVincente", PartitaDiCalcio.class).getResultList();
     }
 }

@@ -3,8 +3,6 @@ package angelomoreno.entities;
 import angelomoreno.entities.enums.Stato;
 
 import javax.persistence.*;
-import java.util.Set;
-import java.util.UUID;
 
 @Entity
 @Table(name = "partecipazioni")

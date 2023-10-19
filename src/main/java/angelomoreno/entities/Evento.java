@@ -3,21 +3,18 @@ package angelomoreno.entities;
 import angelomoreno.entities.enums.TipoEvento;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.util.List;
+import java.util.Date;
 import java.util.Set;
-import java.util.UUID;
 
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Table(name = "eventi")
-@NamedQueries(@NamedQuery(name = "getPartiteVinteInCasa", query = "SELECT p.squadraVincente FROM PartitaDiCalcio p"))
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Evento {
     @Id
     @GeneratedValue
     private long evento_id;
     private String titolo;
-    private LocalDate dataEvento;
+    private Date dataEvento;
     private String descrizione;
     @Enumerated(EnumType.STRING)
     private TipoEvento tipoEvento;
@@ -31,7 +28,7 @@ public abstract class Evento {
 
     public Evento(){};
 
-    public Evento(String titolo, LocalDate dataEvento, String descrizione, TipoEvento tipoEvento, int numeroMassimoPartecipanti, Location location) {
+    public Evento(String titolo, Date dataEvento, String descrizione, TipoEvento tipoEvento, int numeroMassimoPartecipanti, Location location) {
         this.titolo = titolo;
         this.dataEvento = dataEvento;
         this.descrizione = descrizione;
@@ -52,11 +49,11 @@ public abstract class Evento {
         this.titolo = titolo;
     }
 
-    public LocalDate getDataEvento() {
+    public Date getDataEvento() {
         return dataEvento;
     }
 
-    public void setDataEvento(LocalDate dataEvento) {
+    public void setDataEvento(Date dataEvento) {
         this.dataEvento = dataEvento;
     }
 

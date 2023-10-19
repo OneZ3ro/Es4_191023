@@ -14,94 +14,77 @@ import com.github.javafaker.Faker;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import java.time.LocalDate;
 import java.util.*;
 
 public class Application {
     private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("Es4_191023");
     public static void main(String[] args) {
         EntityManager em = emf.createEntityManager();
+
         try {
+            EventoDAO ed = new EventoDAO(em);
             LocationDAO ld = new LocationDAO(em);
             PartecipazioneDAO partd = new PartecipazioneDAO(em);
             PersonaDAO persd = new PersonaDAO(em);
-            EventoDAO ed = new EventoDAO(em);
-            Faker faker =  new Faker();
+            Faker faker = new Faker();
 
-            Persona persona1 = new Persona(faker.funnyName().name(), faker.funnyName().name(), "prova1@gmail.com", faker.date().birthday(), Sesso.M);
-            Persona persona2 = new Persona(faker.funnyName().name(), faker.funnyName().name(), "prova1@gmail.com", faker.date().birthday(), Sesso.F);
-            Persona persona3 = new Persona(faker.funnyName().name(), faker.funnyName().name(), "prova1@gmail.com", faker.date().birthday(), Sesso.M);
-            Persona persona4 = new Persona(faker.funnyName().name(), faker.funnyName().name(), "prova1@gmail.com", faker.date().birthday(), Sesso.F);
-            Persona persona5 = new Persona(faker.funnyName().name(), faker.funnyName().name(), "prova1@gmail.com", faker.date().birthday(), Sesso.M);
-//            persd.save(persona1);
-//            persd.save(persona2);
-//            persd.save(persona3);
-//            persd.save(persona4);
-//            persd.save(persona5);
+//            Set<Persona> personaSet = creaPersoneSet(faker, persd);
+//            creaEventiLocationsPartecipazioni(faker, ed, ld, partd, personaSet);
 
-            Set<Persona> atleti = new HashSet<>();
-//            atleti.add(persona1);
-//            atleti.add(persona2);
-//            atleti.add(persona3);
-//            atleti.add(persona4);
-//            atleti.add(persona5);
+            ed.getConcertiInStreaming(true).forEach(System.out::println);
+            Evento eventoFromDB = ed.getById(22);
+            System.out.println(eventoFromDB);
+            ed.getConcertiPerGenere(GenereConcerto.ROCK).forEach(System.out::println);
+            ed.getPartiteVinteInCasa().forEach(System.out::println);
+            ed.getPartiteVinteInTrasferta().forEach(System.out::println);
 
-            Location loc1 = new Location("Piazza Duomo", "Milano");
-            Location loc2 = new Location("Piazza Leonardo", "Friuli Venezia Giulia");
-            Location loc3 = new Location("Piazzale Margherita", "Puglia");
-//            ld.save(loc1);
-//            ld.save(loc2);
-//            ld.save(loc3);
-
-            Evento evento1 = new PartitaDiCalcio("Pigiama party", LocalDate.now(), "Per festa compleanno", TipoEvento.PRIVATO, 10, loc1, "Milan", "Juventus", "Milan", 3, 1);
-            Evento evento2 = new GaraDiAtletica("Party lavoro", LocalDate.now(), "Per 40 anni dall'apertura", TipoEvento.PRIVATO, 40, loc2, atleti, persona4);
-            Evento evento3 = new Concerto("Concerto Rio", LocalDate.now(), "Concerto mega", TipoEvento.PUBBLICO, 30000, loc3, GenereConcerto.POP, true);
-            Evento evento4 = new Concerto("Concerto Milano", LocalDate.now(), "Concerto small", TipoEvento.PUBBLICO, 500, loc3, GenereConcerto.CLASSICO, false);
-            Evento evento5 = new Concerto("Concerto Lucca", LocalDate.now(), "Concerto big", TipoEvento.PUBBLICO, 1000, loc2, GenereConcerto.ROCK, true);
-//            ed.save(evento1);
-//            ed.save(evento2);
-//            ed.save(evento3);
-//            ed.save(evento4);
-//            ed.save(evento5);
-
-            Partecipazione partecipazione1 = new Partecipazione(persona1, evento1, Stato.DA_CONFERMARE);
-            Partecipazione partecipazione2 = new Partecipazione(persona2, evento1, Stato.DA_CONFERMARE);
-            Partecipazione partecipazione3 = new Partecipazione(persona3, evento2, Stato.DA_CONFERMARE);
-            Partecipazione partecipazione4 = new Partecipazione(persona4, evento3, Stato.CONFERMATA);
-            Partecipazione partecipazione5 = new Partecipazione(persona5, evento3, Stato.CONFERMATA);
-//            partd.save(partecipazione1);
-//            partd.save(partecipazione2);
-//            partd.save(partecipazione3);
-//            partd.save(partecipazione4);
-//            partd.save(partecipazione5);
-
-            Evento eventoFromDb = ed.getById(20);
-            if (eventoFromDb != null) {
-                System.out.println(eventoFromDb);
-            }
-
-            Location locationFromDb = ld.getById(17);
-            if (locationFromDb != null) {
-                System.out.println(locationFromDb);
-            }
-
-            Persona personaFromDb = persd.getById(26);
-            if (personaFromDb != null) {
-                System.out.println(personaFromDb);
-            }
-
-            Partecipazione partecipazioneFromDb = partd.getById(30);
-            if (partecipazioneFromDb != null) {
-                System.out.println(partecipazioneFromDb);
-            }
-
-            ed.getConcertiInStreaming(true).forEach(concerto -> System.out.println(concerto));
-            ed.getPartiteDiCalcio().forEach(partitaDiCalcio -> System.out.println(partitaDiCalcio));
         } catch (Exception ex) {
             System.err.println(ex.getMessage());
         } finally {
             em.close();
             emf.close();
+        }
+    }
+    public static Set<Persona> creaPersoneSet (Faker faker, PersonaDAO persd) {
+        Random rndm = new Random();
+        Set<Persona> personaSet = new HashSet<>();
+        for (int i = 0; i < 20; i++) {
+            int n = rndm.nextInt(0, 10);
+            Persona persona = new Persona(faker.funnyName().name(), faker.funnyName().name(), "prova" + i +"@gmail.com", faker.date().birthday(), n%2==0 ? Sesso.M : Sesso.F);
+            persd.save(persona);
+        }
+        personaSet.addAll(persd.getPersonaList());
+        return personaSet;
+    }
+    public static void creaEventiLocationsPartecipazioni(Faker faker, EventoDAO ed, LocationDAO ld, PartecipazioneDAO partd, Set<Persona> personaSet) {
+        Random rndm = new Random();
+        List<Persona> personas = new ArrayList<>();
+        personas.addAll(personaSet);
+        for (int i = 0; i < 20; i++) {
+            int n = rndm.nextInt(0,100);
+            int goalCasa = rndm.nextInt(0, 5);
+            int goalOspiti = rndm.nextInt(0, 5);
+            String squadraCasa = faker.funnyName().name();
+            String squadraOspiti = faker.funnyName().name();
+            Location location = new Location(faker.country().capital(), faker.country().name());
+            ld.save(location);
+            if (n%2==0) {
+                Evento partitaDiCalcio = new PartitaDiCalcio(faker.book().title(), faker.date().birthday(), "Questa è la mia descrizione", n%2==0 ? TipoEvento.PUBBLICO : TipoEvento.PRIVATO, rndm.nextInt(50, 10000), ld.getLocationList().get(rndm.nextInt(0, ld.getLocationList().size())), squadraCasa, squadraOspiti, goalCasa >= goalOspiti ? squadraCasa : squadraOspiti, goalCasa, goalOspiti);
+                ed.save(partitaDiCalcio);
+                Partecipazione partecipazione = new Partecipazione(personas.get(rndm.nextInt(0, personas.size())), ed.getPartitaDiCalcioList().get(rndm.nextInt(0, ed.getPartitaDiCalcioList().size())), n%2==0 ? Stato.DA_CONFERMARE : Stato.CONFERMATA);
+                partd.save(partecipazione);
+            } else if (n%3==0){
+                int k = rndm.nextInt(0, 1000);
+                Evento concerto = new Concerto(faker.book().title(), faker.date().birthday(), "Questa è la mia descrizione", n%2==0 ? TipoEvento.PUBBLICO : TipoEvento.PRIVATO, rndm.nextInt(50, 10000), ld.getLocationList().get(rndm.nextInt(0, ld.getLocationList().size())), k%4==0 ? GenereConcerto.POP : (k%3==0 ? GenereConcerto.ROCK : GenereConcerto.CLASSICO), k%2==0 ? true : false);
+                ed.save(concerto);
+                Partecipazione partecipazione = new Partecipazione(personas.get(rndm.nextInt(0, personas.size())), ed.getConcertoList().get(rndm.nextInt(0, ed.getConcertoList().size())), n%2==0 ? Stato.DA_CONFERMARE : Stato.CONFERMATA);
+                partd.save(partecipazione);
+            } else {
+                Evento garaDiAtletica = new GaraDiAtletica(faker.book().title(), faker.date().birthday(), "Questa è la mia descrizione", n%2==0 ? TipoEvento.PUBBLICO : TipoEvento.PRIVATO, rndm.nextInt(50, 10000), ld.getLocationList().get(rndm.nextInt(0, ld.getLocationList().size())), personaSet, personas.get(rndm.nextInt(0, personas.size())));
+                ed.save(garaDiAtletica);
+                Partecipazione partecipazione = new Partecipazione(personas.get(rndm.nextInt(0, personas.size())), ed.getGaraDiAtleticaList().get(rndm.nextInt(0, ed.getGaraDiAtleticaList().size())), n%2==0 ? Stato.DA_CONFERMARE : Stato.CONFERMATA);
+                partd.save(partecipazione);
+            }
         }
     }
 }

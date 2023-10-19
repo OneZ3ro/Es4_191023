@@ -3,18 +3,21 @@ package angelomoreno.entities;
 import angelomoreno.entities.enums.GenereConcerto;
 import angelomoreno.entities.enums.TipoEvento;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import java.time.LocalDate;
+import javax.persistence.*;
+import java.util.Date;
+
 @Entity
 @Table(name = "concerti")
 public class Concerto extends Evento {
+    @Enumerated(EnumType.STRING)
+    @Column(name = "genere_concerto")
     private GenereConcerto genereConcerto;
     @Column(name = "in_streaming")
     private boolean inStreaming;
 
-    public Concerto(String titolo, LocalDate dataEvento, String descrizione, TipoEvento tipoEvento, int numeroMassimoPartecipanti, Location location, GenereConcerto genereConcerto, boolean inStreaming) {
+    public Concerto(){}
+
+    public Concerto(String titolo, Date dataEvento, String descrizione, TipoEvento tipoEvento, int numeroMassimoPartecipanti, Location location, GenereConcerto genereConcerto, boolean inStreaming) {
         super(titolo, dataEvento, descrizione, tipoEvento, numeroMassimoPartecipanti, location);
         this.genereConcerto = genereConcerto;
         this.inStreaming = inStreaming;
@@ -28,7 +31,7 @@ public class Concerto extends Evento {
         this.genereConcerto = genereConcerto;
     }
 
-    public boolean getInStreaming() {
+    public boolean isInStreaming() {
         return inStreaming;
     }
 

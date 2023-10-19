@@ -1,10 +1,11 @@
 package angelomoreno.entities.DAO;
 
-import angelomoreno.entities.Evento;
 import angelomoreno.entities.Persona;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
+import java.util.List;
 
 public class PersonaDAO {
     private final EntityManager em;
@@ -50,4 +51,8 @@ public class PersonaDAO {
         }
     }
 
+    public List<Persona> getPersonaList() {
+        TypedQuery<Persona> getPersonaListQuery = em.createQuery("SELECT p FROM Persona p", Persona.class);
+        return getPersonaListQuery.getResultList();
+    }
 }

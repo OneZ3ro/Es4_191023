@@ -1,10 +1,11 @@
 package angelomoreno.entities.DAO;
 
 import angelomoreno.entities.Location;
-import angelomoreno.entities.Partecipazione;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
+import java.util.List;
 
 public class LocationDAO {
     private final EntityManager em;
@@ -50,4 +51,8 @@ public class LocationDAO {
         }
     }
 
+    public List<Location> getLocationList() {
+        TypedQuery<Location> getLocationListQuery = em.createQuery("SELECT l FROM Location l", Location.class);
+        return getLocationListQuery.getResultList();
+    }
 }

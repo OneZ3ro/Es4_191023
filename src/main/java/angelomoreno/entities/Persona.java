@@ -5,8 +5,6 @@ import angelomoreno.entities.enums.Sesso;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
-import java.util.UUID;
 
 @Entity
 @Table(name = "persone")
@@ -26,10 +24,6 @@ public class Persona {
 
     @OneToMany(mappedBy = "vincitore")
     private List<GaraDiAtletica> gareDiAtletica;
-
-    @ManyToMany
-    @JoinTable(name = "garediatletica_persona", joinColumns = @JoinColumn(name = "persona_id"), inverseJoinColumns = @JoinColumn(name = "evento_id"))
-    private Set<GaraDiAtletica> garaDiAtleticaSet;
 
     public Persona(){};
 
