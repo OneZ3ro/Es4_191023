@@ -95,6 +95,7 @@ public class Application {
                 System.out.println(partecipazioneFromDb);
             }
 
+            ed.getConcertiInStreaming().forEach(concerto -> System.out.println(concerto));
         } catch (Exception ex) {
             System.err.println(ex.getMessage());
         } finally {

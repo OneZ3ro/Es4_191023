@@ -11,6 +11,7 @@ import java.util.UUID;
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Table(name = "eventi")
+
 public abstract class Evento {
     @Id
     @GeneratedValue

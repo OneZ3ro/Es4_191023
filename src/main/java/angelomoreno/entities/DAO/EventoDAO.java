@@ -58,6 +58,11 @@ public class EventoDAO {
         return getConcertiInStreamingQuery.getResultList();
     }
 
+//    public List<Concerto> getConcertiInStreaming() {
+//        TypedQuery<Concerto> getConcertiInStreamingQuery = em.createQuery("SELECT x FROM concerti x", Concerto.class);
+//        return getConcertiInStreamingQuery.getResultList();
+//    }
+
     public List<Concerto> getConcertiPerGenere() {
         TypedQuery<Concerto> getConcertiPerGenereQuery = em.createQuery("SELECT x FROM Concerto x ORDER BY x.genere", Concerto.class);
         return getConcertiPerGenereQuery.getResultList();

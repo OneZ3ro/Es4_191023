@@ -5,14 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e587784a-5b85-487e-9e11-714b1e83c8f2" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/angelomoreno/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/angelomoreno/Application.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/angelomoreno/entities/Concerto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/angelomoreno/entities/Concerto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/angelomoreno/entities/DAO/EventoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/angelomoreno/entities/DAO/EventoDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/angelomoreno/entities/GaraDiAtletica.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/angelomoreno/entities/GaraDiAtletica.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/angelomoreno/entities/PartitaDiCalcio.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/angelomoreno/entities/PartitaDiCalcio.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/angelomoreno/entities/Persona.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/angelomoreno/entities/Persona.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/angelomoreno/entities/enums/VeroOFalso.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

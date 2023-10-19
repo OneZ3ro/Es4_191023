@@ -1,10 +1,13 @@
 package angelomoreno.entities.DAO;
 
+import angelomoreno.entities.Concerto;
 import angelomoreno.entities.Partecipazione;
 import angelomoreno.entities.PartitaDiCalcio;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
+import java.util.List;
 
 public class PartitaDiCalcioDAO {
     private final EntityManager em;
@@ -48,6 +51,11 @@ public class PartitaDiCalcioDAO {
         } else {
             System.err.println("La partita di calcio con id" + id + " non è stata trovata");
         }
+    }
+
+    public List<PartitaDiCalcio> getPartiteDiCalcio() {
+        TypedQuery<PartitaDiCalcio> getPartiteDiCalcioQuery = em.createQuery("getPartiteVinteInCasa", PartitaDiCalcio.class);
+        return getPartiteDiCalcioQuery.getResultList();
     }
 
 }
