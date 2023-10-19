@@ -21,7 +21,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class Application {
-    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("Es3_181023");
+    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("Es4_191023");
     public static void main(String[] args) {
         EntityManager em = emf.createEntityManager();
         try {

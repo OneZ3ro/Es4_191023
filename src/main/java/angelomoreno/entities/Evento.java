@@ -9,8 +9,9 @@ import java.util.Set;
 import java.util.UUID;
 
 @Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Table(name = "eventi")
-public class Evento {
+public abstract class Evento {
     @Id
     @GeneratedValue
     private long evento_id;
